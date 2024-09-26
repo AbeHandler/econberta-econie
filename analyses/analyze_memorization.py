@@ -143,13 +143,13 @@ if __name__=='__main__':
     norm_scores_df_all_mem = get_norm_scores(all_sentences, memorization='mem', entities=entities)
     norm_scores_df_all_not_mem = get_norm_scores(all_sentences, memorization='not mem', entities=entities)
     diff =norm_scores_df_all_mem-norm_scores_df_all_not_mem
-    plot_diff(diff, '{}/err_type_diff_pretrained_total.pdf'.format(args.output_folder)), 'lex')
+    plot_diff(diff, '{}/performance_gain_lexicon.pdf'.format(args.output_folder)), 'lex')
     
     # Display memotization-based difference of error types based on entities' POS
     norm_scores_df_all_mem = get_norm_scores(all_sentences, memorization='mem pos', entities=entities_with_pos)
     norm_scores_df_all_not_mem = get_norm_scores(all_sentences, memorization='not mem pos', entities=entities_with_pos)
     diff =norm_scores_df_all_mem-norm_scores_df_all_not_mem
-    plot_diff(diff, '{}/err_type_diff_pretrained_pos_total.pdf'.format(args.output_folder)), 'POS')
+    plot_diff(diff, '{}/performance_gain_POS.pdf'.format(args.output_folder)), 'POS')
     
     # Get mean nb of occurrences for each entity seen during training
     mean_occs = get_mean_occs(entities, cnt_type = 'entity')

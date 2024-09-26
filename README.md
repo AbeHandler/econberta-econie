@@ -1,6 +1,6 @@
 This repository contains the code for the paper [EconBERTa: Towards Robust Extraction of Named Entities in Economics](https://aclanthology.org/2023.findings-emnlp.774/) by Karim Lasri, Pedro Vitor Quinta de Castro, Mona Schirmer, Luis Eduardo San Martin, Linxi Wang, Tomáš Dulka, Haaya Naushan, John Pougué-Biyong, Arianna Legovini, and Samuel Fraiberger published at EMNLP Findings 2023.
 <p align="center">
-  <img width="600" src="methodology.png">
+  <img width="600" src="imgs/methodology.png">
 </p>
 
 ## Overview
@@ -48,6 +48,9 @@ python analyses/plot_error_types.py --output_file <path_to_output>
 ```
 By default, the plot containing error types will be saved at `plots/error_types.pdf`. 
 
+<p align="center">
+  <img width="600" src="imgs/error_types.pdf">
+</p>
 
 ## Plot error types by length
 You can further plot errors as a function of the length of target entities, in tokens, by running :
@@ -56,14 +59,32 @@ python analyses/plot_error_types.py --output_file <path_to_output>
 ```
 By default, the plot containing error types by length ,  will be saved at `plots/err_types_by_length.pdf`.
 
+<p align="center">
+  <img width="600" src="imgs/err_types_by_length">
+</p>
 
 ## Examine memorization patterns
 You can further analyze memorization patterns for the EconBERTa model by running :
 ```
 python analyses/analyze_memorization.py --output_folder <path_to_output_folder>
 ```
-By default, the plot containing error types by length ,  will be saved at `plots/` and will contain four files corresponding to the four subplots in Fig. 5 of our article. On the one hand, `err_type_diff_pretrained_total.pdf` and `err_type_diff_pretrained_pos_total.pdf` display performance gains on entities and POS sequences seen during training versus those absent of the training set. On the other hand, `mean_occ_lexicon.pdf` and `mean_occ_POS.pdf` display the mean number of occurrences for each unique entity and POS sequence seen during training. 
+By default, the plot containing error types by length ,  will be saved at `plots/` and will contain four files corresponding to the four subplots in Fig. 5 of our article. On the one hand, `performance_gain_lexicon.pdf` and `performance_gain_POS.pdf` display performance gains on entities and POS sequences seen during training versus those absent of the training set. On the other hand, `mean_occ_lexicon.pdf` and `mean_occ_POS.pdf` display the mean number of occurrences for each unique entity and POS sequence seen during training. 
 
+<p align="center">
+  <img width="600" src="imgs/performance_gain_lexicon.pdf">
+</p>
+
+<p align="center">
+  <img width="600" src="imgs/mean_occ_lexicon.pdf">
+</p>
+
+<p align="center">
+  <img width="600" src="imgs/performance_gain_POS.pdf">
+</p>
+
+<p align="center">
+  <img width="600" src="mean_occ_POS.pdf">
+</p>
 
 
 If you find this repository useful in your research, please cite the following paper:
