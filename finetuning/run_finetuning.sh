@@ -29,6 +29,7 @@ for model_name in bert roberta mdeberta scratch pretrained; do
         echo "sh evaluate_ner_allennlp_cv.sh ${VERSION}_${model_name} $MODEL_FOLDER ner_allennlp_best"
         sh evaluate_ner_allennlp_cv.sh ${VERSION}_${model_name} $MODEL_FOLDER ner_allennlp_best ${DATASET_PATH}
 
+
       fi
 
     fi
