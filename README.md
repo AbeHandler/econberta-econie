@@ -83,7 +83,7 @@ By default, the plot containing error types by length ,  will be saved at `plots
 </p>
 
 <p align="center">
-  <img width="600" src="mean_occ_POS.png">
+  <img width="600" src="imgs/mean_occ_POS.png">
 </p>
 
 
