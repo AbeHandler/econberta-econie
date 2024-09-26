@@ -1,5 +1,6 @@
 from analysis_utils import *
 import matplotlib.pyplot as plt
+import argparse
 
 
 BEST_MODEL_VERSION = '2.3_scratch_1.0'
@@ -31,6 +32,16 @@ def plot_norm_scores_by_length(norm_scores_by_length, filename=None):
 
     
 if __name__=='__main__':
+    parser = argparse.ArgumentParser(
+        description="Plot error types as a function of target entities' lengths in number of tokens, for the best performing model, the name of which can be specified above."
+    )
+
+    parser.add_argument("--output_file", type=str, help="Location where the plot will be saved.", default="plots/err_types_by_length.pdf")
+    args = parser.parse_args()
+
+    if not os.path.exists('plots/'):
+        os.mkdir('plots/')
+    
     all_sentences = load_all_sentences(version=BEST_MODEL_VERSION)
     test_true_predictions, test_true_labels = get_preds_labels(all_sentences)
     prep_preds = preprocess_tags(test_true_predictions)
@@ -63,4 +74,4 @@ if __name__=='__main__':
         norm_scores_total = norm_scores_df_all.loc['total']
         norm_scores_by_length.append(norm_scores_total)
 
-    plot_norm_scores_by_length(norm_scores_by_length, 'plots/err_types_by_length.pdf')
+    plot_norm_scores_by_length(norm_scores_by_length, args.output_file)

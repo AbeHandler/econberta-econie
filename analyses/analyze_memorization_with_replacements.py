@@ -106,8 +106,6 @@ def print_diff(dataset_type, version, orig_type='test'):
             
 if __name__=='__main__':
     evaluate_model(version=BEST_MODEL_VERSION, dataset_types=DATASET_TYPES)
-    #evaluate_model(version=BEST_MODEL_VERSION, dataset_types=['in_replaced_test_pos_weighted', 'intrain_replaced_test_pos_weighted', 'test'])
-    
     print_diff('in_replaced_test_weighted', version=BEST_MODEL_VERSION)
     print_diff('intrain_replaced_test_weighted', version=BEST_MODEL_VERSION)
     print_diff('in_replaced_test_pos_weighted', version=BEST_MODEL_VERSION)

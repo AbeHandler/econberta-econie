@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import math
 from analysis_utils import *
+import argparse
 
 VERSION = '2.3'
 SLICE = '1.0'
@@ -33,14 +34,24 @@ def plot_all_scores(all_scores, filename='plots/total_error_types.pdf'):
     
     
 if __name__=='__main__':
+    parser = argparse.ArgumentParser(
+        description="Plot proportions for correct predictions and each error types across models previously finetuned."
+    )
+
+    parser.add_argument("--output_file", type=str, help="Location where the plot will be saved.", default="plots/error_types.pdf")
+    args = parser.parse_args()
+    
     per_version_sentences = {}
     for version in versions:
         per_version_sentences[version] = load_all_sentences(version=version)
 
+    if not os.path.exists('plots/'):
+        os.mkdir('plots/')
+    
     fold = None
     all_scores = {}
     for version in versions:
         scores = get_norm_scores(per_version_sentences[version], fold=fold)
         all_scores[version] = scores
 
-    plot_all_scores(all_scores, filename='plots/total_error_types.pdf')
+    plot_all_scores(all_scores, filename=atgs.output_file)

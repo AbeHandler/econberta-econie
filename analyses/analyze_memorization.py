@@ -5,6 +5,7 @@ import numpy as np
 import math
 import stanza
 import os
+import argparse
 
 
 colors_err = ['green', 'yellowgreen', 'yellow', 'orange', 'red', 'darkred']
@@ -108,6 +109,16 @@ def get_mean_occs(entities, cnt_type = 'entity'):
 
 
 if __name__=='__main__':
+    parser = argparse.ArgumentParser(
+    description="Plot performance gain for entities seen during training, and POS sequences seen during training, versus entities and POS sequences not seen during training, along with entity and POS sequence counts in the training set."
+    )
+
+    parser.add_argument("--output_folder", type=str, help="Location where the plot will be saved.", default="plots/")
+    args = parser.parse_args()
+
+    if not os.path.exists(args.output_folder):
+        os.mkdir(args.output_folder)
+    
     # Load sentences
     all_sentences = load_all_sentences(version=BEST_MODEL_VERSION)
     
@@ -132,23 +143,23 @@ if __name__=='__main__':
     norm_scores_df_all_mem = get_norm_scores(all_sentences, memorization='mem', entities=entities)
     norm_scores_df_all_not_mem = get_norm_scores(all_sentences, memorization='not mem', entities=entities)
     diff =norm_scores_df_all_mem-norm_scores_df_all_not_mem
-    plot_diff(diff, 'plots/err_type_diff_pretrained_total.pdf', 'lex')
+    plot_diff(diff, '{}/err_type_diff_pretrained_total.pdf'.format(args.output_folder)), 'lex')
     
     # Display memotization-based difference of error types based on entities' POS
     norm_scores_df_all_mem = get_norm_scores(all_sentences, memorization='mem pos', entities=entities_with_pos)
     norm_scores_df_all_not_mem = get_norm_scores(all_sentences, memorization='not mem pos', entities=entities_with_pos)
     diff =norm_scores_df_all_mem-norm_scores_df_all_not_mem
-    plot_diff(diff, 'plots/err_type_diff_pretrained_pos_total.pdf', 'POS')
+    plot_diff(diff, '{}/err_type_diff_pretrained_pos_total.pdf'.format(args.output_folder)), 'POS')
     
     # Get mean nb of occurrences for each entity seen during training
     mean_occs = get_mean_occs(entities, cnt_type = 'entity')
     
     # Plot histogram based on lexical content seen during training
-    plot_unique(mean_occs, cnt_type = 'entity', save_path = 'plots/histogram_lexicon.pdf')
+    plot_unique(mean_occs, cnt_type = 'entity', save_path = '{}/mean_occ_lexicon.pdf'.format(args.output_folder))
 
     # Get mean nb of occurrences for each POS tag seen during training
     mean_occs_pos = geat_mean_occs(entities_with_pos, cnt_type = 'POS')
 
 
     # Plot histogram based on POS sequences seen during training
-    plot_unique(mean_occs_pos, cnt_type = 'POS', save_path = 'plots/histogram_lexicon.pdf')
+    plot_unique(mean_occs_pos, cnt_type = 'POS', save_path = '{}/mean_occ_POS.pdf'.format(args.output_folder))
