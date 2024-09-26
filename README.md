@@ -49,7 +49,7 @@ python analyses/plot_error_types.py --output_file <path_to_output>
 By default, the plot containing error types will be saved at `plots/error_types.pdf`. 
 
 <p align="center">
-  <img width="600" src="imgs/error_types.pdf">
+  <img width="600" src="imgs/error_types.png">
 </p>
 
 ## Plot error types by length
@@ -60,7 +60,7 @@ python analyses/plot_error_types.py --output_file <path_to_output>
 By default, the plot containing error types by length ,  will be saved at `plots/err_types_by_length.pdf`.
 
 <p align="center">
-  <img width="600" src="imgs/err_types_by_length">
+  <img width="600" src="imgs/err_types_by_length.png">
 </p>
 
 ## Examine memorization patterns
@@ -71,19 +71,19 @@ python analyses/analyze_memorization.py --output_folder <path_to_output_folder>
 By default, the plot containing error types by length ,  will be saved at `plots/` and will contain four files corresponding to the four subplots in Fig. 5 of our article. On the one hand, `performance_gain_lexicon.pdf` and `performance_gain_POS.pdf` display performance gains on entities and POS sequences seen during training versus those absent of the training set. On the other hand, `mean_occ_lexicon.pdf` and `mean_occ_POS.pdf` display the mean number of occurrences for each unique entity and POS sequence seen during training. 
 
 <p align="center">
-  <img width="600" src="imgs/performance_gain_lexicon.pdf">
+  <img width="600" src="imgs/performance_gain_lexicon.png">
 </p>
 
 <p align="center">
-  <img width="600" src="imgs/mean_occ_lexicon.pdf">
+  <img width="600" src="imgs/mean_occ_lexicon.png">
 </p>
 
 <p align="center">
-  <img width="600" src="imgs/performance_gain_POS.pdf">
+  <img width="600" src="imgs/performance_gain_POS.png">
 </p>
 
 <p align="center">
-  <img width="600" src="mean_occ_POS.pdf">
+  <img width="600" src="mean_occ_POS.png">
 </p>
 
 
