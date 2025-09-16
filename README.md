@@ -1,3 +1,10 @@
+# Updates
+
+This is a fork of worldbank/econberta-econie. It updates packages and adds a new train.py script to avoid the dependency on allennlp (deprecated in 2022). 
+
+To run, clone the repo and install requirements.txt in a new conda env. Then run `CUDA_VISIBLE_DEVICES=0 python train.py`
+
+# Original README below here
 This repository contains the code for the paper [EconBERTa: Towards Robust Extraction of Named Entities in Economics](https://aclanthology.org/2023.findings-emnlp.774/) by Karim Lasri, Pedro Vitor Quinta de Castro, Mona Schirmer, Luis Eduardo San Martin, Linxi Wang, Tomáš Dulka, Haaya Naushan, John Pougué-Biyong, Arianna Legovini, and Samuel Fraiberger published at EMNLP Findings 2023.
 <p align="center">
   <img width="600" src="imgs/methodology.png">
