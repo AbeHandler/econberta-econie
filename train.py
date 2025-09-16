@@ -60,7 +60,7 @@ dataset = datasets.DatasetDict({
 
 from transformers import AutoTokenizer, AutoModel
 
-tokenizer = AutoTokenizer.from_pretrained("worldbank/econberta", use_fast=False)
+tokenizer = AutoTokenizer.from_pretrained("worldbank/econberta", use_fast=True)
 
 model_name = "worldbank/econberta"
 
@@ -137,7 +137,7 @@ AdamW is already the default optimizer
 '''
 
 # they use dropout of Task Layer 0.2
-model.classifier.dropout.p = 0.2
+
 
 training_args = TrainingArguments(
     output_dir="./results",
