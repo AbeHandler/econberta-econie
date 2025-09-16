@@ -165,3 +165,6 @@ trainer = Trainer(
 
 trainer.train()
 
+
+model.push_to_hub("abehandlerorg/econberta-ner")
+tokenizer.push_to_hub("abehandlerorg/econberta-ner")
