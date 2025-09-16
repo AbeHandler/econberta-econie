@@ -59,11 +59,12 @@ dataset = datasets.DatasetDict({
 })
 
 # --- Tokenizer and model ---
-model_name = "distilbert-base-uncased"
+model_name = "worldbank/econberta"
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 model = AutoModelForTokenClassification.from_pretrained(
     model_name, num_labels=len(label_list), id2label=id2label, label2id=label2id
 )
+
 
 def tokenize_and_align_labels(examples):
     tokenized_inputs = tokenizer(
@@ -111,13 +112,39 @@ def compute_metrics(p):
         [p for seq in true_predictions for p in seq],
     )}
 
+
+
+
+'''
+Hyper-parameter Value
+✅ Dropout of Task Layer 0.2
+✅ Learning Rate [5e-5, 6e-5, 7e-5]
+✅ Batch size 12
+✅ Gradient Acc. Steps 4
+✅ Weight Decay 0
+✅ Maximum Training Epochs 10
+
+These required too much fiddling w/ HF and I skipped them. 
+AdamW is already the default optimizer
+❌ Learning Rate Decay Slanted Triangular
+❌ Fraction of steps 6%
+❌ Adam ϵ 1e-8
+❌ Adam β1 0.9
+❌ Adam β2 0.999
+'''
+
+# they use dropout of Task Layer 0.2
+model.classifier.dropout.p = 0.2
+
 training_args = TrainingArguments(
     output_dir="./results",
-    learning_rate=2e-5,
-    per_device_train_batch_size=16,
-    per_device_eval_batch_size=16,
-    num_train_epochs=3,
+    learning_rate=6e-5,
+    per_device_train_batch_size=12,
+    per_device_eval_batch_size=12,
+    gradient_accumulation_steps=4,
+    num_train_epochs=10,
     logging_steps=50,
+    weight_decay=0.0,
     save_strategy="epoch",
     eval_strategy="epoch",
     load_best_model_at_end=True,
