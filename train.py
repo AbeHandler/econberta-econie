@@ -62,6 +62,7 @@ from transformers import AutoTokenizer, AutoModel
 
 tokenizer = AutoTokenizer.from_pretrained("worldbank/econberta", use_fast=False)
 
+model_name = "worldbank/econberta"
 
 model = AutoModelForTokenClassification.from_pretrained(
     model_name, num_labels=len(label_list), id2label=id2label, label2id=label2id
