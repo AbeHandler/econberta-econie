@@ -58,9 +58,11 @@ dataset = datasets.DatasetDict({
     "test": datasets.Dataset.from_dict(test_data),
 })
 
-# --- Tokenizer and model ---
-model_name = "worldbank/econberta"
-tokenizer = AutoTokenizer.from_pretrained(model_name)
+from transformers import AutoTokenizer, AutoModel
+
+tokenizer = AutoTokenizer.from_pretrained("worldbank/econberta", use_fast=False)
+
+
 model = AutoModelForTokenClassification.from_pretrained(
     model_name, num_labels=len(label_list), id2label=id2label, label2id=label2id
 )
