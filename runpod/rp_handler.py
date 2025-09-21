@@ -1,5 +1,6 @@
 import runpod
 import time  
+from transformers import pipeline
 
 def handler(event):
 #   This function processes incoming requests to your Serverless endpoint.
@@ -15,7 +16,7 @@ def handler(event):
     input = event['input']
     
     prompt = input.get('prompt')  
-    seconds = input.get('seconds', 0)  
+    seconds = input.get('seconds', 0)
 
     print(f"Received prompt: {prompt}")
     print(f"Sleeping for {seconds} seconds...")
@@ -23,7 +24,9 @@ def handler(event):
     # You can replace this sleep call with your own Python code
     time.sleep(seconds)  
     
-    return prompt 
+    pipe = pipeline("token-classification", model="abehandlerorg/econberta-ner")
+
+    return pipe(prompt)
 
 # Start the Serverless function when the script is run
 if __name__ == '__main__':
