@@ -2,7 +2,8 @@ FROM python:3.10-slim
 
 WORKDIR /
 
-# Install dependencies
+COPY requirements.txt /
+
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy your handler file
