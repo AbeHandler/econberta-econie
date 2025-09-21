@@ -1,0 +1,3 @@
+- How to set up run pod
+- Following [this](https://docs.runpod.io/serverless/workers/custom-worker)
+- To activate venv run `$source rp/bin/activate`
