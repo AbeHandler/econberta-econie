@@ -2,6 +2,10 @@ import runpod
 import time  
 from transformers import pipeline
 
+print("Loading model...")
+pipe = pipeline("token-classification", model="abehandlerorg/econberta-ner")
+print("Model loaded!")
+
 def handler(event):
 #   This function processes incoming requests to your Serverless endpoint.
 #
@@ -23,8 +27,6 @@ def handler(event):
     
     # You can replace this sleep call with your own Python code
     time.sleep(seconds)  
-    
-    pipe = pipeline("token-classification", model="abehandlerorg/econberta-ner")
 
     return pipe(prompt)
 
