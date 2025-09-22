@@ -1,5 +1,6 @@
 import runpod
-import time  
+import time
+import numpy as np
 from transformers import pipeline
 
 print("Loading model...")
