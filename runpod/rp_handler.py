@@ -1,24 +1,11 @@
 import runpod
 import time
-import numpy as np
+import torch
 from transformers import pipeline
 
 print("Loading model...")
 pipe = pipeline("token-classification", model="abehandlerorg/econberta-ner")
 print("Model loaded!")
-
-def to_serializable(obj):
-    if isinstance(obj, np.floating):
-        return float(obj)
-    if isinstance(obj, np.integer):
-        return int(obj)
-    if isinstance(obj, np.ndarray):
-        return obj.tolist()
-    if isinstance(obj, list):
-        return [to_serializable(i) for i in obj]
-    if isinstance(obj, dict):
-        return {k: to_serializable(v) for k, v in obj.items()}
-    return obj
 
 def handler(event):
 #   This function processes incoming requests to your Serverless endpoint.
@@ -43,7 +30,11 @@ def handler(event):
     time.sleep(seconds)  
 
     result = pipe(prompt)
-    return to_serializable(result)
+
+    for dno, d in enumerate(result):
+        result[dno]["score"] = float(result[dno]["score"])
+
+    return result
 
 # Start the Serverless function when the script is run
 if __name__ == '__main__':
