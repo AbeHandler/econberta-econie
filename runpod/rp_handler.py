@@ -1,11 +1,51 @@
 import runpod
 import time
-import torch
 from transformers import pipeline
 
 print("Loading model...")
 pipe = pipeline("token-classification", model="abehandlerorg/econberta-ner")
 print("Model loaded!")
+
+def collapse_spans(tokens):
+    spans = []
+    current = None
+
+    for token in tokens:
+        tag = token['entity'].split('-')[-1]
+        is_continuation = current and current['tag'] == tag and token['entity'].startswith('I')
+
+        if is_continuation:
+            current['words'].append(token['word'])
+            current['scores'].append(float(token['score']))
+            current['end'] = token['end']
+        else:
+            if current:
+                spans.append({
+                    'tag': current['tag'],
+                    'text': ''.join(current['words']).replace('▁', ' ').strip(),
+                    'score': sum(current['scores']) / len(current['scores']),
+                    'start': current['start'],
+                    'end': current['end']
+                })
+            current = {
+                'tag': tag,
+                'words': [token['word']],
+                'scores': [float(token['score'])],
+                'start': token['start'],
+                'end': token['end']
+            }
+
+    if current:
+        spans.append({
+            'tag': current['tag'],
+            'text': ''.join(current['words']).replace('▁', ' ').strip(),
+            'score': sum(current['scores']) / len(current['scores']),
+            'start': current['start'],
+            'end': current['end']
+        })
+
+    return spans
+
 
 def handler(event):
 #   This function processes incoming requests to your Serverless endpoint.
@@ -33,6 +73,8 @@ def handler(event):
 
     for dno, d in enumerate(result):
         result[dno]["score"] = float(result[dno]["score"])
+
+    result = collapse_spans(result)
 
     return result
 
